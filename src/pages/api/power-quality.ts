@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-interface PowerQualityData {
+// Interface'i kullanıyoruz
+type PowerQualityResponse = {
   timestamp: number;
   volt: number[];
   current: number[];
@@ -12,7 +13,7 @@ interface PowerQualityData {
     severity: string;
     description?: string;
   }>;
-}
+};
 
 // Cache-Control header'ını devre dışı bırak
 export const config = {
@@ -23,7 +24,7 @@ export const config = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse<PowerQualityResponse | { error: string; details?: string }>
 ) {
   // CORS header'larını ekle
   res.setHeader('Access-Control-Allow-Origin', '*');

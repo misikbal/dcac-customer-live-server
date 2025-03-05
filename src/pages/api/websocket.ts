@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import type { Server as HTTPServer } from 'http';
 import type { Socket } from 'net';
-import type { Server as IOServer } from 'ws';
+import type { Server as IOServer, WebSocket } from 'ws';
+import { IncomingMessage } from 'http';
 
 interface CustomSocket extends Socket {
   server: HTTPServer & {
@@ -13,8 +14,13 @@ interface CustomNextApiResponse extends NextApiResponse {
   socket: CustomSocket;
 }
 
-let WebSocketServer: any;
-let WS: any;
+interface WebSocketMessage {
+  type: string;
+  data: unknown;
+}
+
+let WebSocketServer: typeof IOServer;
+let WS: typeof WebSocket;
 
 // WebSocket modülünü dinamik olarak import et
 async function initializeWebSocket() {
@@ -117,8 +123,8 @@ export default async function handler(
   if (!res.socket.server.ws) {
     res.socket.server.ws = await setupWebSocketServer();
 
-    res.socket.server.on('upgrade', (request: any, socket: any, head: any) => {
-      wss.handleUpgrade(request, socket, head, (ws: any) => {
+    res.socket.server.on('upgrade', (request: IncomingMessage, socket: Socket, head: Buffer) => {
+      wss.handleUpgrade(request, socket, head, (ws: WebSocket) => {
         wss.emit('connection', ws, request);
       });
     });

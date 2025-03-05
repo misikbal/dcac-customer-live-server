@@ -259,6 +259,16 @@ export default function Home() {
     );
   };
 
+  // Loading durumunu göster
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  // Hata durumunu göster
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <>
       <Head>

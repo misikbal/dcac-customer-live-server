@@ -6,7 +6,7 @@ interface NavbarProps {
   currentPage: string;
 }
 
-export function Navbar({ currentPage }: NavbarProps) {
+export function Navbar({ currentPage: _ }: NavbarProps) {
   const router = useRouter();
 
   return (
