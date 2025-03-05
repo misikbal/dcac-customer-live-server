@@ -1,0 +1,85 @@
+.metricsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    justify-items: center;
+}
+
+.metricCard {
+    background: rgba(45, 45, 45, 0.7);
+    border-radius: 10px;
+    padding: 1rem;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.voltageCard {
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 107, 107, 0.2));
+}
+
+.voltagePhasea { border-left: 4px solid #FF6B6B; }
+.voltagePhaseb { border-left: 4px solid #FF6B6B; }
+.voltagePhasec { border-left: 4px solid #FF6B6B; }
+.voltagePhasen { border-left: 4px solid #FF6B6B; }
+
+.currentCard {
+    background: linear-gradient(135deg, rgba(66, 153, 225, 0.1), rgba(66, 153, 225, 0.2));
+}
+
+.powerCard {
+    background: linear-gradient(135deg, rgba(72, 187, 120, 0.1), rgba(72, 187, 120, 0.2));
+}
+
+.metricHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    width: 100%;
+}
+
+.voltageIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+}
+
+.metricTitle {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.metricValue {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.valueNumber {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.metricUnit {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Diğer stiller buraya eklenecek */ 
