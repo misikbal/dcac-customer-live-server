@@ -113,22 +113,19 @@ export default function Home() {
 
   // WebSocket bağlantısı
   const connectWebSocket = useCallback(() => {
-    if (typeof window !== 'undefined') {
-      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-      const websocket = new WebSocket(`${protocol}//${window.location.host}/api/websocket`);
-      
-      let lastEventTime = 0; // Son event zamanını takip et
+    if (typeof window !== 'undefined' && !ws) {
+      // Vercel'de çalışırken environment variable'ı kullan
+      const websocketUrl = process.env.NEXT_PUBLIC_WEBSOCKET_URL || 'wss://oriontecno.com/ws';
+      const websocket = new WebSocket(websocketUrl);
       
       websocket.onmessage = (event) => {
         try {
-          const now = Date.now();
           const newData = JSON.parse(event.data);
           setData(newData);
           
-          // Event varsa ve son eventten 500ms geçtiyse alert göster
-          if (newData.events && now - lastEventTime >= 500) {
+          // Event varsa alert göster
+          if (newData.events) {
             newData.events.forEach((event: any) => showAlert(event));
-            lastEventTime = now;
           }
           setError(null);
         } catch (error) {
@@ -150,7 +147,7 @@ export default function Home() {
 
       setWs(websocket);
     }
-  }, [showAlert]);
+  }, [ws, showAlert]);
 
   // Sayfa yüklendiğinde ve belirli aralıklarla veri çek
   useEffect(() => {
